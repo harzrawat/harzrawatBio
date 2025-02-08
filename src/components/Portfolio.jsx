@@ -1,5 +1,7 @@
 import React from 'react';
 import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import profilePic from '../assets/profilepic.jpeg';
+
 
 const Portfolio = () => {
   const projects = [
@@ -54,7 +56,7 @@ const Portfolio = () => {
         <div className="max-w-6xl mx-auto px-4 py-10">
           <div className="text-center">
           <img 
-            src="/profilepic.jpeg" 
+            src={profilePic} 
             alt="Harsh Rawat"
             className="w-40 h-40 mx-auto rounded-full border-4 border-gray-300 shadow-lg"
           />
