@@ -11,7 +11,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  
   "dependencies": {
     "@shadcn/ui": "^0.0.4",
     "lucide-react": "^0.460.0",
