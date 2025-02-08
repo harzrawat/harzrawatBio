@@ -54,7 +54,7 @@ const Portfolio = () => {
         <div className="max-w-6xl mx-auto px-4 py-10">
           <div className="text-center">
           <img 
-            src="/profilepic.jpg" 
+            src="/profilepic.jpeg" 
             alt="Harsh Rawat"
             className="w-40 h-40 mx-auto rounded-full border-4 border-gray-300 shadow-lg"
           />
