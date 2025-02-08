@@ -1,4 +1,7 @@
 export default defineConfig({
   plugins: [react()],
-  base: "./",  // Use "/" or "./" for Vercel
+  base: "/",
+  build: {
+    outDir: "dist", // Default output folder
+  },
 });
