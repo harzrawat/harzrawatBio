@@ -53,6 +53,11 @@ const Portfolio = () => {
       <section className="">
         <div className="max-w-6xl mx-auto px-4 py-10">
           <div className="text-center">
+          <img 
+            src="/profilepic.jpg" 
+            alt="Harsh Rawat"
+            className="w-40 h-40 mx-auto rounded-full border-4 border-gray-300 shadow-lg"
+          />
             <h1 className="text-5xl font-bold text-black mb-6">
               Hey, I'm Harsh Rawat
             </h1>
