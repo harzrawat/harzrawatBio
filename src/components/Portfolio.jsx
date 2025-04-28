@@ -23,6 +23,18 @@ const Portfolio = () => {
       tags: ["Flask", "Python", "JavaScript"],
       link: "#"
     }
+    {
+      title: "Smart University Assistant",
+      description: "Chatbot to resolve queries about Sitare University",
+      tags: ["Python", "Streamlit", "MongoDB"],
+      link: "#"
+    },
+    {
+      title: "HeartCheckAuto",
+      description: "Web portal to check heart health based on ML model and platform for service",
+      tags: ["Flask", "Python", "JavaScript"],
+      link: "#"
+    }
   ];
 
   const skills = ["React", "JavaScript", "TypeScript", "Node.js", "HTML/CSS", "Git", "SQL", "MongoDB"];
