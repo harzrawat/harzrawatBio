@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 import profilePic from '../assets/profilepic.jpeg';
 
@@ -22,12 +22,12 @@ const Portfolio = () => {
       description: "Web portal to check heart health based on ML model and platform for service",
       tags: ["Flask", "Python", "JavaScript"],
       link: "#"
-    }
+    },
     {
-      title: "Smart University Assistant",
-      description: "Chatbot to resolve queries about Sitare University",
+      title: "Library Management App",
+      description: "Application to keep track of books Issued for every user/student",
       tags: ["Python", "Streamlit", "MongoDB"],
-      link: "#"
+      link: "https://harzrawat-nosql-library-management.streamlit.app/"
     },
     {
       title: "HeartCheckAuto",
@@ -39,6 +39,25 @@ const Portfolio = () => {
 
   const skills = ["React", "JavaScript", "TypeScript", "Node.js", "HTML/CSS", "Git", "SQL", "MongoDB"];
 
+  // Reference to the scroll container
+  const scrollContainerRef = useRef(null);
+
+  // Function to scroll left
+  const scrollLeft = () => {
+    scrollContainerRef.current.scrollBy({
+      left: -300, // Scroll left by 300px
+      behavior: "smooth",
+    });
+  };
+
+  // Function to scroll right
+  const scrollRight = () => {
+    scrollContainerRef.current.scrollBy({
+      left: 300, // Scroll right by 300px
+      behavior: "smooth",
+    });
+  };
+  
   return (
     // <div className="min-h-screen relative overflow-hidden bg-gradient-to-r from-black via-blue-950 to-purple-600 animate-gradient-x">
   <div className="">
@@ -119,78 +138,117 @@ const Portfolio = () => {
       </div>
 
       {/* Projects Section */}
-      <section id="projects" className="bg-gradient-to-r from-pink-950 via-black via-blue-800 via-purple-500 via-pink-500 via-blue-950 via-black to-blue-950 animate-gradient-layers py-20">
+      <section
+        id="projects"
+        className="bg-gradient-to-r from-pink-950 via-black via-blue-800 via-purple-500 via-pink-500 via-blue-950 via-black to-blue-950 animate-gradient-layers py-20"
+      >
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Projects</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, index) => (
-              <div key={index} className="backdrop-blur-lg bg-white/10 p-6 rounded-2xl shadow-xl border border-white/20 hover:transform hover:scale-105 transition-transform duration-300">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                  <p className="text-white-600 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span
-                        key={tagIndex}
-                        className="px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-sm"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+
+          {/* Horizontal scroll container with arrows */}
+          <div className="relative">
+            {/* Left Scroll Arrow */}
+            <button
+              onClick={scrollLeft}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full opacity-60 hover:opacity-100 transition duration-300 z-10"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            {/* Scrollable container */}
+            <div
+              ref={scrollContainerRef}
+              className="flex overflow-x-auto space-x-8 px-6 py-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {projects.map((project, index) => (
+                <div
+                  key={index}
+                  className="min-w-[80%] md:min-w-[60%] flex bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20 hover:scale-105 transition-transform duration-300"
+                >
+                  {/* Left side - Details */}
+                  <div className="w-1/2 p-6 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                      <p className="text-white-600 mb-4">{project.description}</p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag, tagIndex) => (
+                          <span
+                            key={tagIndex}
+                            className="px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-sm"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <a
+                      href={project.link !== "#" ? project.link : undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-white hover:text-blue-700"
+                    >
+                      <u>{project.link !== "#" ? "View Project" : "Unavailable"}</u>
+                      <ExternalLink size={16} className="ml-1" />
+                    </a>
                   </div>
-                  <a
-                    href={project.link}
-                    className="inline-flex items-center text-white hover:text-blue-700"
-                  >
-                    <u>View Project</u> <ExternalLink size={16} className="ml-1" />
-                  </a>
+
+                  {/* Right side - Preview */}
+                  <div className="w-1/2 p-2">
+                    {project.link !== "#" ? (
+                      <iframe
+                        src={project.link}
+                        title={project.title}
+                        className="w-full h-64 rounded-lg border-2 border-gray-300"
+                      ></iframe>
+                    ) : (
+                      <div className="w-full h-64 flex items-center justify-center bg-gray-200 rounded-lg text-gray-600 text-center">
+                        Preview Unavailable
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Right Scroll Arrow */}
+            <button
+              onClick={scrollRight}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full opacity-60 hover:opacity-100 transition duration-300 z-10"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="bg-gradient-to-r from-pink-950 via-black via-blue-800 via-purple-500 via-pink-500 via-blue-950 via-black to-blue-950 animate-gradient-layers py-20">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Get In Touch</h2>
-          <div className="bg-white rounded-lg shadow-sm p-8">
-            <form className="">
-              <div>
-                <label className="block text-gray-700 mb-2" htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700 mb-2" htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700 mb-2" htmlFor="message">Message</label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
+
 
       {/* Footer */}
       <footer className="bg-white py-8">
